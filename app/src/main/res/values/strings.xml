@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">PassMaster</string>
+    <string name="title_home">My Passes</string>
+    <string name="title_password_generator">New Password</string>
+    <string name="title_passphrase_generator">New Passphrase</string>
+</resources>

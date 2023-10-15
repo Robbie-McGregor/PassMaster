@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_my_passwords"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/navigation_password_generator"
+        android:icon="@drawable/ic_password_generator"
+        android:title="@string/title_password_generator" />
+
+    <item
+        android:id="@+id/navigation_passphrase_generator"
+        android:icon="@drawable/ic_passphrase_generator"
+        android:title="@string/title_passphrase_generator" />
+
+</menu>
