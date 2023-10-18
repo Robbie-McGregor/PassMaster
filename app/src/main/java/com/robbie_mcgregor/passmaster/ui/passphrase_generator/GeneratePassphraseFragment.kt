@@ -3,22 +3,19 @@ package com.robbie_mcgregor.passmaster.ui.passphrase_generator
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import com.robbie_mcgregor.passmaster.PassInterface
 import com.robbie_mcgregor.passmaster.databinding.FragmentPassphraseGeneratorBinding
-import com.robbie_mcgregor.passmaster.ui.NewPassActivity
-import com.robbie_mcgregor.passmaster.ui.password_generator.Password
 
-class GeneratePassphraseFragment : Fragment() {
+class GeneratePassphraseFragment(private val passInterface: PassInterface) : Fragment() {
 
     private var _binding: FragmentPassphraseGeneratorBinding? = null
     private lateinit var passphrase: Passphrase
@@ -86,8 +83,8 @@ class GeneratePassphraseFragment : Fragment() {
             passphrase.setSeparator(binding.editTextSeparator.text.toString())
             updatePassphraseDisplay()
         }
-//        Delayed scroll to bottom of screen when edittext focuses - otherwise when the keyboard pops up it hides the textview anbd user has to scroll down
-        binding.editTextSeparator.setOnFocusChangeListener { view, b ->
+//        Delayed scroll to bottom of screen when edittext focuses - otherwise when the keyboard pops up it hides the textview and user has to scroll down
+        binding.editTextSeparator.setOnFocusChangeListener { _, _ ->
             Handler().postDelayed({
                 binding.scrollview.fullScroll(View.FOCUS_DOWN)
                 binding.editTextSeparator.setSelection(binding.editTextSeparator.length())
@@ -99,9 +96,7 @@ class GeneratePassphraseFragment : Fragment() {
 
     //    TO DO - save passphrase to new entry in database
     private fun savePassphrase() {
-        val intent = Intent(activity?.applicationContext, NewPassActivity::class.java)
-        intent.putExtra("password", passphrase.getPassphrase())
-        startActivity(intent)
+        passInterface.newPassFragmentCreation(passphrase.getPassphrase())
     }
 
     //    Copy passphrase to clipboard

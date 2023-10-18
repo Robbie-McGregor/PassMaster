@@ -13,18 +13,6 @@
         android:theme="@style/Theme.PassMaster"
         tools:targetApi="31">
         <activity
-            android:name=".ui.ViewPassActivity"
-            android:label="View Pass"
-            android:exported="false" />
-        <activity
-            android:name=".ui.EditPassActivity"
-            android:exported="false"
-            android:label="Edit Pass" />
-        <activity
-            android:name=".ui.NewPassActivity"
-            android:exported="false"
-            android:label="Save New Pass" />
-        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name">

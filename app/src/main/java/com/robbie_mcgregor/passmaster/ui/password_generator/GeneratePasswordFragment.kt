@@ -3,22 +3,17 @@ package com.robbie_mcgregor.passmaster.ui.password_generator
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.robbie_mcgregor.passmaster.MainActivity
+import com.robbie_mcgregor.passmaster.PassInterface
 import com.robbie_mcgregor.passmaster.databinding.FragmentPasswordGeneratorBinding
-import com.robbie_mcgregor.passmaster.ui.NewPassActivity
 
-class GeneratePasswordFragment : Fragment() {
+class GeneratePasswordFragment(private val passInterface: PassInterface) : Fragment() {
 
     private var _binding: FragmentPasswordGeneratorBinding? = null
     private lateinit var password: String
@@ -67,9 +62,7 @@ class GeneratePasswordFragment : Fragment() {
     }
 
     private fun savePassword() {
-        val intent = Intent(activity?.applicationContext, NewPassActivity::class.java)
-        intent.putExtra("password", password)
-        startActivity(intent)
+        passInterface.newPassFragmentCreation(password)
     }
 
     private fun copyToClipboard() {

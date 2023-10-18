@@ -14,5 +14,4 @@ data class Pass (
     val dateModified: String? = null,
     var password: String? = null,
     var website: String? = null
-): Serializable {
-}
+): Serializable

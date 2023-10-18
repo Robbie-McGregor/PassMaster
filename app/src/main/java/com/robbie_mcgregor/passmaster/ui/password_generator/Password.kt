@@ -1,4 +1,4 @@
-package com.robbie_mcgregor.passmaster.ui.password_generator;
+package com.robbie_mcgregor.passmaster.ui.password_generator
 
 
 class Password(
