@@ -1,5 +1,7 @@
 package com.robbie_mcgregor.passmaster
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -118,7 +120,31 @@ class MainActivity : AppCompatActivity(), PassInterface {
                 Toast.makeText(this, "Pass Updated: ${pass.name}", Toast.LENGTH_SHORT).show()
                 setCurrentFragment(ViewPassFragment(pass = pass, passInterface = this))
             }
-
         }
+    }
+
+    override fun loadHomeScreen() {
+        setCurrentFragment(homeFragment)
+    }
+
+    override fun launchURL(url: String?) {
+//        new URL string that can be modified to add http:// if necessary
+        var urlString = url
+
+//        Exit function on no valid URL
+        if (urlString == null || urlString == "") {
+            Toast.makeText(this, "Website Is Empty, Cannot Launch", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+//        Make sure that URL starts with either http:// or https://
+        if (!urlString.startsWith("http://") && !urlString.startsWith("https://")) {
+            urlString = "http://" + url;
+        }
+
+//Launch Browser
+        val webpage: Uri = Uri.parse(urlString)
+        val intent = Intent(Intent.ACTION_VIEW, webpage)
+        startActivity(intent)
     }
 }

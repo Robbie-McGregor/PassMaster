@@ -27,7 +27,7 @@
             android:id="@+id/text_view_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
+            android:textSize="11sp"
             tools:text="Password Login Account Here" />
     </LinearLayout>
 
