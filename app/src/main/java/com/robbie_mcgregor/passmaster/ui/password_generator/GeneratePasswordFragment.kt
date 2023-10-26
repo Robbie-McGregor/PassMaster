@@ -1,16 +1,13 @@
 package com.robbie_mcgregor.passmaster.ui.password_generator
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.robbie_mcgregor.passmaster.PassInterface
+import com.robbie_mcgregor.passmaster.data.PassInterface
+import com.robbie_mcgregor.passmaster.util.Routes
 import com.robbie_mcgregor.passmaster.databinding.FragmentPasswordGeneratorBinding
 
 class GeneratePasswordFragment(private val passInterface: PassInterface) : Fragment() {
@@ -52,25 +49,16 @@ class GeneratePasswordFragment(private val passInterface: PassInterface) : Fragm
 
     private fun setUIListeners() {
         binding.buttonRefresh.setOnClickListener { getPassword() }
-        binding.buttonClipboard.setOnClickListener { copyToClipboard() }
+        binding.buttonClipboard.setOnClickListener { passInterface.copyToClipboard(name = "Password", content = password) }
         binding.switchCapitalLetters.setOnCheckedChangeListener { _, _ -> getPassword() }
         binding.switchUnderscoreLetters.setOnCheckedChangeListener { _, _ -> getPassword() }
         binding.switchNumbers.setOnCheckedChangeListener { _, _ -> getPassword() }
         binding.switchSpecialCharacters.setOnCheckedChangeListener { _, _ -> getPassword() }
-        binding.buttonSavePassword.setOnClickListener { savePassword() }
+        binding.buttonSavePassword.setOnClickListener { passInterface.navigate(parameters = password, route = Routes.CREATE_NEW_ITEM) }
         seekbarListener()
     }
 
-    private fun savePassword() {
-        passInterface.newPassFragmentCreation(password)
-    }
 
-    private fun copyToClipboard() {
-        val clipboard = activity?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clip: ClipData = ClipData.newPlainText("password", password)
-        clipboard.setPrimaryClip(clip)
-        Toast.makeText(activity, "Copied To Clipboard", Toast.LENGTH_SHORT).show()
-    }
 
     private fun seekbarListener() {
         binding.seekBarPasswordLength.setOnSeekBarChangeListener(object :

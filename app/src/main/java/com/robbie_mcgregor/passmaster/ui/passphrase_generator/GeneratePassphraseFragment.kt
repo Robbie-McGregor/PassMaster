@@ -1,18 +1,15 @@
 package com.robbie_mcgregor.passmaster.ui.passphrase_generator
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import com.robbie_mcgregor.passmaster.PassInterface
+import com.robbie_mcgregor.passmaster.data.PassInterface
+import com.robbie_mcgregor.passmaster.util.Routes
 import com.robbie_mcgregor.passmaster.databinding.FragmentPassphraseGeneratorBinding
 
 class GeneratePassphraseFragment(private val passInterface: PassInterface) : Fragment() {
@@ -65,7 +62,7 @@ class GeneratePassphraseFragment(private val passInterface: PassInterface) : Fra
             updatePassphraseDisplay()
         }
 //        Copy button copies to clipboard
-        binding.buttonClipboard.setOnClickListener { copyToClipboard() }
+        binding.buttonClipboard.setOnClickListener { passInterface.copyToClipboard(name = "Passphrase", content = passphrase.getPassphrase()) }
 //        capitalize switch toggles capitalize and updates display
         binding.switchCapitalize.setOnCheckedChangeListener { _, _ ->
             passphrase.setCapitalized(binding.switchCapitalize.isChecked)
@@ -77,7 +74,7 @@ class GeneratePassphraseFragment(private val passInterface: PassInterface) : Fra
             updatePassphraseDisplay()
         }
 //        save button to implement once database is added
-        binding.buttonSavePassphrase.setOnClickListener { savePassphrase() }
+        binding.buttonSavePassphrase.setOnClickListener { passInterface.navigate(parameters = passphrase.getPassphrase(), route = Routes.CREATE_NEW_ITEM) }
 //        when separator text is changed modify and update display
         binding.editTextSeparator.addTextChangedListener {
             passphrase.setSeparator(binding.editTextSeparator.text.toString())
@@ -94,18 +91,6 @@ class GeneratePassphraseFragment(private val passInterface: PassInterface) : Fra
         seekbarListener()
     }
 
-    //    TO DO - save passphrase to new entry in database
-    private fun savePassphrase() {
-        passInterface.newPassFragmentCreation(passphrase.getPassphrase())
-    }
-
-    //    Copy passphrase to clipboard
-    private fun copyToClipboard() {
-        val clipboard = activity?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clip: ClipData = ClipData.newPlainText("password", passphrase.getPassphrase())
-        clipboard.setPrimaryClip(clip)
-        Toast.makeText(activity, "Copied To Clipboard", Toast.LENGTH_SHORT).show()
-    }
 
     //    Update password length on seekbar change. Also update display text to show length
     private fun seekbarListener() {

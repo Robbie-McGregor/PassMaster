@@ -68,6 +68,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
+        android:paddingEnd="54dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
         android:hint="@string/name">
@@ -76,11 +77,12 @@
             android:id="@+id/edit_text_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:editable="false" />
+            android:focusable="false" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout_username_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp">
@@ -99,7 +101,7 @@
                 android:id="@+id/edit_text_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:editable="false" />
+                android:focusable="false" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
@@ -130,13 +132,15 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/button_copy_password"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_text_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:editable="false" />
+                android:focusable="false"
+                android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
@@ -173,7 +177,7 @@
                 android:id="@+id/edit_text_website"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:editable="false" />
+                android:focusable="false" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton

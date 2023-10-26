@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.robbie_mcgregor.passmaster.Pass
-import com.robbie_mcgregor.passmaster.PassInterface
+import com.robbie_mcgregor.passmaster.data.Pass
+import com.robbie_mcgregor.passmaster.data.PassInterface
+import com.robbie_mcgregor.passmaster.util.Routes
 import com.robbie_mcgregor.passmaster.databinding.FragmentEditPassBinding
 
 
@@ -35,7 +36,7 @@ class EditPassFragment(private val pass: Pass, private val passInterface: PassIn
         binding.editTextPassword.setText(pass.password)
         binding.editTextUsername.setText(pass.account)
         binding.editTextWebsite.setText(pass.website)
-        binding.buttonCancel.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
+        binding.buttonCancel.setOnClickListener { passInterface.navigate(Routes.BACK) }
         binding.buttonSave.setOnClickListener { updateEntry() }
     }
 
@@ -49,7 +50,7 @@ class EditPassFragment(private val pass: Pass, private val passInterface: PassIn
         pass.website = binding.editTextWebsite.text.toString()
         pass.password = binding.editTextPassword.text.toString()
 
-        passInterface.updatePass(pass)
+        passInterface.saveIntoDatabase(pass = pass, message = "Updated Pass ${pass.name}")
     }
 
 

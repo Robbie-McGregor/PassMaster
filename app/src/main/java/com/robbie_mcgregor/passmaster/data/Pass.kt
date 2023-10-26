@@ -1,10 +1,10 @@
-package com.robbie_mcgregor.passmaster
+package com.robbie_mcgregor.passmaster.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
 
-@Entity (tableName = "passwords")
+@Entity (tableName = "passwords", )
 data class Pass (
     @PrimaryKey(autoGenerate = true)
     val id: Long? = null,

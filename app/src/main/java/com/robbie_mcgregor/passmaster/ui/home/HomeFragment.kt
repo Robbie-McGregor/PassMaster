@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.robbie_mcgregor.passmaster.Pass
-import com.robbie_mcgregor.passmaster.PassDao
-import com.robbie_mcgregor.passmaster.PassDatabase
-import com.robbie_mcgregor.passmaster.PassInterface
+import com.robbie_mcgregor.passmaster.data.Pass
+import com.robbie_mcgregor.passmaster.data.PassDao
+import com.robbie_mcgregor.passmaster.data.PassDatabase
+import com.robbie_mcgregor.passmaster.data.PassInterface
+import com.robbie_mcgregor.passmaster.util.Routes
 import com.robbie_mcgregor.passmaster.databinding.FragmentHomeBinding
 import java.util.concurrent.Executors
 
@@ -49,19 +50,31 @@ class HomeFragment(private val passInterface: PassInterface) : Fragment() {
 
             mList = passDao.getAllPasses() as ArrayList<Pass>
 
-            requireActivity().runOnUiThread {
-                passwordRowItemAdapter =
-                    PasswordRowItemAdapter(mList, passInterface = passInterface)
-                binding.recyclerViewPasswords.adapter = passwordRowItemAdapter
+            if (mList.isEmpty()) {
+//                When the list is empty, show this instead
+                binding.emptyList.visibility = View.VISIBLE
+            } else {
+//                Otherwise populate list
+                binding.emptyList.visibility = View.GONE
+                requireActivity().runOnUiThread {
+                    passwordRowItemAdapter =
+                        PasswordRowItemAdapter(mList, passInterface = passInterface)
+                    binding.recyclerViewPasswords.adapter = passwordRowItemAdapter
+                }
             }
+
+
         }
     }
+
+    // Create a view to add instead of the recycler view when the list is empty.
+
 
     private fun initialize() {
         passDatabase = PassDatabase.getDatabase(requireContext())
         passDao = passDatabase.passDao()
 
-        binding.buttonAddNew.setOnClickListener { passInterface.newPassFragmentCreation(null) }
+        binding.buttonAddNew.setOnClickListener { passInterface.navigate(Routes.CREATE_NEW_ITEM) }
     }
 
     override fun onDestroyView() {

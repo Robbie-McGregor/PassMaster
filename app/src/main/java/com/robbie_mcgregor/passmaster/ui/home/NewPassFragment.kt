@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.robbie_mcgregor.passmaster.Pass
-import com.robbie_mcgregor.passmaster.PassInterface
+import com.robbie_mcgregor.passmaster.data.Pass
+import com.robbie_mcgregor.passmaster.data.PassInterface
 import com.robbie_mcgregor.passmaster.databinding.FragmentNewPassBinding
 
 
@@ -48,6 +48,6 @@ class NewPassFragment(private val password: String?, private val passInterface: 
             password = binding.editTextPassword.text.toString(),
             website = binding.editTextWebsite.text.toString()
         )
-        passInterface.newPassDatabaseCreation(newPass)
+        passInterface.saveIntoDatabase(pass = newPass, message = "New Pass ${newPass.name} Added.")
     }
 }

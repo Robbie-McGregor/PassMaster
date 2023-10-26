@@ -1,13 +1,11 @@
 package com.robbie_mcgregor.passmaster.ui.home
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.robbie_mcgregor.passmaster.Pass
-import com.robbie_mcgregor.passmaster.PassInterface
-import com.robbie_mcgregor.passmaster.R
+import com.robbie_mcgregor.passmaster.data.Pass
+import com.robbie_mcgregor.passmaster.data.PassInterface
+import com.robbie_mcgregor.passmaster.util.Routes
 import com.robbie_mcgregor.passmaster.databinding.RowItemPassBinding
 
 class PasswordRowItemAdapter(private val mList: ArrayList<Pass>, private val passInterface: PassInterface) :
@@ -39,7 +37,7 @@ class PasswordRowItemAdapter(private val mList: ArrayList<Pass>, private val pas
             binding.textViewName.text = pass.name
             binding.textViewAccount.text = pass.account
 
-            binding.root.setOnClickListener { passInterface.viewPass(pass) }
+            binding.root.setOnClickListener { passInterface.navigate(route = Routes.VIEW_ITEM, parameters = pass) }
         }
 
 

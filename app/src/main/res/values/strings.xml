@@ -24,4 +24,5 @@
     <string name="include_number_at_end_of_random_word">Include Number at end of Random Word</string>
     <string name="separator">Separator</string>
     <string name="separator_default">-</string>
+    <string name="no_entries_to_show">No Entries To Show</string>
 </resources>
